@@ -894,7 +894,11 @@ unjail2(void)
 
         char *nmz = strdup("/dev/disk0s1s1");
         rv = mount("hfs", "/", MNT_UPDATE, (void *)&nmz);
-        NSLog(@"remounting: %d", rv);
+        NSLog(@"remounting root filesystem: %d", rv);
+        
+        char *dev = strdup("/dev/disk3");
+        rv = mount("hfs", "/Developer", MNT_UPDATE, (void *)&dev);
+        NSLog(@"romounting developer disk image: %d", rv);
 
         v_mount = kread_uint64(rootfs_vnode + off);
         kwrite_uint32(v_mount + 0x71, v_flag);
